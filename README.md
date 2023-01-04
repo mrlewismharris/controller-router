@@ -1,11 +1,23 @@
 # controller-router
 A custom controller router for node js + express applications
 
+# How to
+1. git clone https://github.com/mrlewismharris/controller-router
+2. cd controller-router
+3. npm i
+4. npm run dev
+5. goto http://localhost:3000
+
+Controllers and their endpoints will be logged to the terminal
+
 Aims:
   - Simple and easy to understand controllers and endpoints ✔️
   - Contain views
   - Easy to make custom configuration
   - Easy to replicate path to create a folder, view, controller .js file with function (i.e. grab view or utilies api), in the controller folder
+  - Authentication
+    - Only allow some routes to return html, plaintext, etc. when certain authentication conditions are made
+    - 
 
 Nice to haves:
   - Auto-reload capability (only for development enabled environment)
