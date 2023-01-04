@@ -1,61 +1,45 @@
-const  fs = require('fs')
+const fs = require('fs')
 const express = require('express')
+const bodyParser = require('body-parser')
+const ControllerEndpoints = require('./ControllerEndpoints')
 
 module.exports = {
     ExpressControllerServer: (config = {}) => {
-        const __root = process.cwd()
+        //runtime environment: development or production (use arg -env production/development)
+        const __environment = process.argv.includes("-env") ? process.argv[process.argv.indexOf("-env")+1] : "dev"
+        //set port, controllersLocation, staticFolder, default/index controller name, and controller suffix from config or use defaults
         const port = config.port ?? 3000
         const controllersLocation = config.controllersLocation ?? "Controllers"
         const staticFolder = config.public ?? "public"
         const indexController = config.indexController ?? "Index"
+        const indexEndpoint = config.indexEndpoint ?? indexController
         const controllerSuffix = config.controllerSuffix ?? "Controller"
 
-        let bootstrappedControllers = []
+        var endpoints = new ControllerEndpoints(controllersLocation, indexController, indexEndpoint)
 
-        fs.readdir(`${__root}/${controllersLocation}`, (err, path) => {
-            if (err) {
-                console.log(`Error reading controllers location: "${controllersLocation}" - Check it exists in the root directory`)
-            }
-            path.forEach(path => {
-                if (fs.lstatSync(`${__root}/${controllersLocation}/${path}`).isDirectory()) {
-                    if (fs.existsSync(`${__root}/${controllersLocation}/${path}/${path}${controllerSuffix}.js`)) {
-                        bootstrappedControllers[path] = require(`${__root}/${controllersLocation}/${path}/${path}${controllerSuffix}.js`)
-                    } else {
-                        console.log(`The Controller directory "${path}" exists, but does not include a js file - create a .js file in this directory with the name of the controller + "${controllerSuffix}.js"`)
-                    }
-                }
-            })
-            console.log(bootstrappedControllers)
-        })
-        
+        //create app + define static folder based on config
         const app = express()
         app.use(express.static(`/${staticFolder}`))
+        app.use(bodyParser.urlencoded({ extended: false }))
+        app.use(bodyParser.json())
 
-        app.use('/', (req, res) => {
-            if (bootstrappedControllers[indexController]) {
-                if (bootstrappedControllers[indexController][indexController]) {
-                    res.send(bootstrappedControllers[indexController][indexController]())
-                } else if (bootstrappedControllers[indexController]["Index"]) {
-                    res.send(bootstrappedControllers[indexController]["Index"]())
-                } else {
-                    res.send(`500: Controller "/${controllersLocation}/${indexController}/${indexController}${controllerSuffix}.js" contains no index function - create a function as "Index" or the controller name`)
-                }
-            } else {
-                res.send(`404: Controller "${indexController}" does not exist on the server at: "/${controllersLocation}/${indexController}"`)
-            }
+        //return a controller based on controller folder + endpoint
+        app.use('/:controller/:endpoint', (req, res) => {
+            return res.send(endpoints.call(req.params.controller, req.params.endpoint) ?? endpoints.call("Shared", "404"))
         })
 
         app.use('/:controller', (req, res) => {
-            const controller = req.params.controller
-            if (fs.existsSync(`${__root}/${controllersLocation}/${controller}`, 'utf-8')) {
-                res.send("Hello World!")
-            } else {
-                res.send(`404: Controller "${controller}" does not exist on the server at: "/${controllersLocation}/${controller}"`)
-            }
+            return res.send(endpoints.call(req.params.controller) ?? endpoints.call("Shared", "404"))
+        })
+
+        //set the default index page
+        app.use('/', (req, res) => {
+            return res.send(endpoints.call() ?? endpoints.call("Shared", "404"))
         })
         
         app.listen(port, () => {
-            console.log(`Server started on port ${port}`)
+            console.log(`Server started on port ${port} in ${__environment} mode`)
         })
+
     }
 }
