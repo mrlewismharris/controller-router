@@ -25,7 +25,18 @@ note: *above values are the property defaults, all directories are relative to r
 
 # development process
 ### adding controllers
-controllers are used to handle server-side logic after the route has been requested by the user, but before the page is rendered.
+controllers are used to handle server-side logic after the route has been requested by the user, but before the page is rendered. To add a controller simply make a folder inside of your controllers directory and add a javascript file with the same name as the controller name, and the controller suffix set in the config (by default "Controller") for example: "Index/IndexController.js" - the .js will be seen as a module by the module loader in ControllerEndpoints.js.
+
+### adding endpoint
+add an endpoint to a controller by simply adding a function to the controller's .js file, for example HelloWorldController.js file will contain:
+```
+module.export = {
+  HelloWorld: () => {
+    return "Hello World"
+  }
+}
+```
+when you restart the server (nodemon will autoreload) the endpoint will automatically be added to the server and return whatever is returned by the function, ejs is recommended as a templating engine but anything which can output as a string can be used within each of the endpoints - or you could create an api by outputting json, xml, csv data, etc.
 
 # aims
   - easy to understand controllers and endpoint, with repeatable workflow from zero to endpoint
