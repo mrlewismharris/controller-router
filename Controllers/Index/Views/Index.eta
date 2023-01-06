@@ -1,0 +1,34 @@
+<% layout(`${it.root}/Layouts/_Layout.eta`, {
+    title: "controller-router - Landing",
+    root: it.root
+}) %>
+
+<style>
+    .card {
+        padding: 15px;
+        background: #eee;
+        border: 1px solid #999;
+        border-radius: 5px;
+    }
+</style>
+
+<h1><a href="https://github.com/mrlewismharris/controller-router" target="_blank">Controller-router</a> by Lewis Harris</h1>
+
+<h3>Landing Page</h3>
+<p>Notice how the URL does not contain a controller or endpoint, this is the landing page.</p>
+
+<p>The server's landing page is set with the <code>indexController</code> and <code>indexEndpoint</code> config properties.</p>
+
+<h3>Controllers and Endpoints</h3>
+<p>If <code>indexController</code> property is set, but not <code>indexEndpoint</code>, the function with the same name as the controller (i.e. <b>Index</b>Controller.js) is used.</p>
+
+<h3>Hotreload</h3>
+<p>When running in dev mode, open your browser's developer console and you should see this:</p>
+<img src="/public/images/hotreload-console.png" />
+<p>This indicates that when you save any .js or .eta file in your project, the browser will automatically be refreshed.</p>
+
+<a href="/Test">
+    <div class="card">
+        <p>Click here to go to the test page</p>
+    </div>
+</a>

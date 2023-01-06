@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= it.title %></title>
+        <%~ includeFile(`${it.root}/Layouts/preScripts.eta`) %>
+    </head>
+    <body>
+        <%~ it.body %>
+        <%~ includeFile(`${it.root}/Layouts/postScripts.eta`) %>
+        <% if (it.developer) { %>
+            <%~ includeFile(`${it.root}/Layouts/developerScripts.eta`) %>
+        <% } %>
+    </body>
+</html>

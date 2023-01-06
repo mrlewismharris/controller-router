@@ -7,6 +7,7 @@ class ControllerEndpoints {
         this.defaultEndpoint = defaultEndpoint
 
         const __root = process.cwd()
+        this.root = __root
         //at construction, inject the controller objects, using require, into the bootstrappedControllers array
         fs.readdir(`${__root}/${controllersLocation}`, (err, path) => {
             var controllerList = []
@@ -56,12 +57,21 @@ class ControllerEndpoints {
         return !this.controllerExists(controller) ? null : this.getControllersWithEndpoints()[controller].includes(endpoint) ? true : null
     }
 
-    call(controller = this.defaultController, endpoint = controller ?? this.defaultController, args) {
+    async call(data) {
+        var controller = data.controller || this.defaultController
+        var endpoint = data.endpoint || controller || this.defaultController
+
+        //add data for final endpoint
+        data['controller'] = controller
+        data['endpoint'] = endpoint
+        data['root'] = this.root
+
         if (!this.controllerExists(controller))
             return null
         if (!this.endpointExists(controller, endpoint))
             return null
-        return this.controllers[controller][endpoint](args)
+
+        return await this.controllers[controller][endpoint](data)
     }
 
 }

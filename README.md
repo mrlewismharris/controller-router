@@ -45,8 +45,12 @@ when you restart the server (nodemon will autoreload) the endpoint will automati
 # todos
   - ~~remove server side fs call on every page load~~ ✔️
   - ~~simplify code and seperate concerns into server and controller/enpoint loading~~ ✔️
-  - auto-reload in developer mode using ajax polling ever 50-100ms
-  - add method for parsing arguments from req to controllers (such as queries, body, etc.)
+  - ~~add way to load the "Views" directory location inside and relative to the .js controller file~~ ✔️
+    - Was complicated, but should be intuitive to end-users with a small explanation (this means add explanation to this readme file + docs)
+  - make nicer looking error pages (with debug information in dev mode)
+  - ~~auto-reload in developer mode using ajax polling every 50-100ms~~ ✔️
+  - ~~add eta template engine as default and add "Layouts" directory with some global layouts - update default code with new layouts~~ ✔️
+  - ~~add method for parsing arguments from req to controllers (such as queries, body, etc.)~~ ✔️
   - before controller is loaded/initialised, bootstrap authentication if the user sends certain request
     - in the route request, before the endpoint.call() function, do this auth, then send it as object param
     - figure out way to decorate the endpoints in a controller in an intuitive way:
