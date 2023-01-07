@@ -52,6 +52,8 @@ if you'd like to access the app's root directory (where `index.js` is found) pas
   - ~~simplify code and seperate concerns into server and controller/enpoint loading~~ ✔️
   - ~~add way to load the "Views" directory location inside and relative to the .js controller file~~ ✔️
     - Was complicated, but should be intuitive to end-users with a small explanation (this means add explanation to this readme file + docs)
+  - ~~make nicer looking default webapp pages~~ ✔️
+  - add way to load css/js pre/post on EACH view (i.e. similar to nunjucks loading "block" rather than entire file - possibly add razor style `@section Styles {  }` above the layout() function call and add as a variable in layout object + in layout page as object OR anything similar to `@RenderSection("Styles", false)`)
   - make nicer looking error pages (with debug information in dev mode)
   - ~~auto-reload in developer mode using ajax polling every 50-100ms~~ ✔️
   - ~~add eta template engine as default and add "Layouts" directory with some global layouts - update default code with new layouts~~ ✔️
