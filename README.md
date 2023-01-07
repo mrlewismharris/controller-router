@@ -38,6 +38,11 @@ module.export = {
 ```
 when you restart the server (nodemon will autoreload) the endpoint will automatically be added to the server and return whatever is returned by the function, ejs is recommended as a templating engine but anything which can output as a string can be used within each of the endpoints - or you could create an api by outputting json, xml, csv data, etc.
 
+### views
+you can use whatever template engine you like but eta is recommended and shipped by default. make a "/Views" directory in your controllers (or name it whatever you want, or with sub-directories) and within the controller use `await data.eta.renderFile('Views/Index.eta', { views: __dirname })` to render the view - eta uses the config property "views" to specify the directory to look in for the views, the default directory (if you don't specify this view prop) is in the root "Layouts" directory.
+
+if you'd like to access the app's root directory (where `index.js` is found) pass in `root: data.root` in the same object as the `views` prop, assuming you have `data` set as a controller arg, it should automatically be sent to the controller - then you can specify the layout file with `<% layout(`${it.root}/Layouts/_Layout.eta`) %>`.
+
 # aims
   - easy to understand controllers and endpoint, with repeatable workflow from zero to endpoint
   - authentication built into the express route and relevant data parsed to the controller

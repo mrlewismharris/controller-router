@@ -1,18 +1,17 @@
 <% layout(`${it.root}/Layouts/_Layout.eta`, {
-    title: "controller-router - Landing",
-    root: it.root
+    title: "controller-router - Landing Page"
 }) %>
 
 <style>
     .card {
-        padding: 15px;
+        padding: 5px;
         background: #eee;
         border: 1px solid #999;
         border-radius: 5px;
+        width: 280px;
+        text-align: center;
     }
 </style>
-
-<h1><a href="https://github.com/mrlewismharris/controller-router" target="_blank">Controller-router</a> by Lewis Harris</h1>
 
 <h3>Landing Page</h3>
 <p>Notice how the URL does not contain a controller or endpoint, this is the landing page.</p>
@@ -25,7 +24,7 @@
 <h3>Hotreload</h3>
 <p>When running in dev mode, open your browser's developer console and you should see this:</p>
 <img src="/public/images/hotreload-console.png" />
-<p>This indicates that when you save any .js or .eta file in your project, the browser will automatically be refreshed.</p>
+<p>This indicates that when you save any .js, .eta or .css file in your project (set via nodemon), all connected browsers will automatically be refreshed.</p>
 
 <a href="/Test">
     <div class="card">

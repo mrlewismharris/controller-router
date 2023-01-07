@@ -2,6 +2,7 @@ const fs = require('fs')
 const express = require('express')
 const bodyParser = require('body-parser')
 const ControllerEndpoints = require('./ControllerEndpoints')
+const eta = require('eta')
 
 module.exports = {
     ExpressControllerServer: (config = {}) => {
@@ -14,6 +15,7 @@ module.exports = {
         const indexController = config.indexController ?? "Index"
         const indexEndpoint = config.indexEndpoint ?? indexController
         const controllerSuffix = config.controllerSuffix ?? "Controller"
+        const layoutDirectories = config.layouts ?? []
 
         var endpoints = new ControllerEndpoints(controllersLocation, indexController, indexEndpoint, controllerSuffix)
 
@@ -21,6 +23,10 @@ module.exports = {
         const app = express()
         app.use(bodyParser.urlencoded({ extended: false }))
         app.use(bodyParser.json())
+
+        eta.configure({
+            views: [ "Layouts" ].concat(layoutDirectories)
+        })
 
         const server = {
             environment: __environment,
@@ -34,7 +40,8 @@ module.exports = {
             return res.send(await endpoints.call({
                 controller: req.params.controller,
                 endpoint: req.params.endpoint,
-                serverData: server
+                serverData: server,
+                eta: eta
             }) ?? await endpoints.call({
                 controller: "Shared",
                 endpoint: "404"
@@ -44,7 +51,8 @@ module.exports = {
         app.use('/:controller', async (req, res) => {
             return res.send(await endpoints.call({
                 controller: req.params.controller,
-                serverData: server
+                serverData: server,
+                eta: eta
             }) ??await  endpoints.call({
                 controller: "Shared",
                 endpoint: "404"
@@ -54,7 +62,8 @@ module.exports = {
         //set the default index page
         app.use('/', async (req, res) => {
             return res.send(await endpoints.call({
-                serverData: server
+                serverData: server,
+                eta: eta
             }) ?? await endpoints.call({
                 controller: "Shared",
                 endpoint: "404"

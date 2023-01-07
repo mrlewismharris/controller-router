@@ -2,11 +2,20 @@
 <html>
     <head>
         <title><%= it.title %></title>
-        <%~ includeFile(`${it.root}/Layouts/preScripts.eta`) %>
+        <%~ includeFile(`${it.root}/Layouts/globalHeader.eta`) %>
     </head>
     <body>
-        <%~ it.body %>
-        <%~ includeFile(`${it.root}/Layouts/postScripts.eta`) %>
+        <div class="ribbon-container">
+            <div class="ribbon">
+                <div class="title">controller-router</div>
+                <a href="/">home</a>
+                <a href="https://github.com/mrlewismharris/controller-router" target="_blank">github</a>
+            </div>
+        </div>
+        <div class="body">
+            <%~ it.body %>
+        </div>
+        <%~ includeFile(`${it.root}/Layouts/globalFooter.eta`) %>
         <% if (it.developer) { %>
             <%~ includeFile(`${it.root}/Layouts/developerScripts.eta`) %>
         <% } %>
