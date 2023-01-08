@@ -1,8 +1,9 @@
 module.exports = {
     Test: async (data) => {
-        return await data.eta.renderFile(`${__dirname}/Views/Test.eta`, {
+        return await data.eta.renderFile(`Views/Test.eta`, {
             root: data.root,
-            developer: data.serverData.environment == "dev"
+            developer: data.serverData.environment == "dev",
+            views: __dirname
         })
     },
     ApiCall: () => {

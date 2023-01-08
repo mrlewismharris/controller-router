@@ -2,7 +2,7 @@
 <html>
     <head>
         <title><%= it.title %></title>
-        <%~ includeFile(`${it.root}/Layouts/globalHeader.eta`) %>
+        <%~ includeFile(`globalHeader.eta`) %>
     </head>
     <body>
         <div class="ribbon-container">
@@ -15,9 +15,9 @@
         <div class="body">
             <%~ it.body %>
         </div>
-        <%~ includeFile(`${it.root}/Layouts/globalFooter.eta`) %>
+        <%~ includeFile(`globalFooter.eta`) %>
         <% if (it.developer) { %>
-            <%~ includeFile(`${it.root}/Layouts/developerScripts.eta`) %>
+            <%~ includeFile(`developerScripts.eta`) %>
         <% } %>
     </body>
 </html>
