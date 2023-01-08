@@ -41,7 +41,7 @@ when you restart the server (nodemon will autoreload) the endpoint will automati
 ### views
 you can use whatever template engine you like but eta is recommended and shipped by default. make a "/Views" directory in your controllers (or name it whatever you want, or with sub-directories) and within the controller use `await data.eta.renderFile('Views/Index.eta', { views: __dirname })` to render the view - eta uses the config property "views" to specify the directory to look in for the views, the default directory (if you don't specify this view prop) is in the root "Layouts" directory.
 
-if you'd like to access the app's root directory (where `index.js` is found) pass in `root: data.root` in the same object as the `views` prop, assuming you have `data` set as a controller arg, it should automatically be sent to the controller - then you can specify the layout file with `<% layout(`${it.root}/Layouts/_Layout.eta`) %>`.
+if you'd like to access the app's root directory (where `index.js` is found) pass in `root: data.root` in the same object as the `views` prop, assuming you have `data` set as a controller arg, it should automatically be sent to the controller - then you can specify the layout file with `<% layout('/Layouts/_Layout.eta') %>`.
 
 # aims
   - easy to understand controllers and endpoint, with repeatable workflow from zero to endpoint

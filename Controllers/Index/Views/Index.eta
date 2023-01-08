@@ -1,4 +1,4 @@
-<% layout(`${it.root}/Layouts/_Layout.eta`, {
+<% layout(`/Layouts/_Layout.eta`, {
     title: "controller-router - Landing Page"
 }) %>
 
