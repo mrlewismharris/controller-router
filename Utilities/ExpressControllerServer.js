@@ -1,4 +1,3 @@
-const fs = require('fs')
 const express = require('express')
 const bodyParser = require('body-parser')
 const ControllerEndpoints = require('./ControllerEndpoints')
@@ -24,9 +23,10 @@ module.exports = {
         app.use(bodyParser.urlencoded({ extended: false }))
         app.use(bodyParser.json())
 
-        eta.configure({
+        //might have to come back to this...
+        /*eta.configure({
             views: [ "Layouts" ].concat(layoutDirectories)
-        })
+        })*/
 
         const server = {
             environment: __environment,
